@@ -2,7 +2,7 @@ class SetCard
   include Comparable
 
   CARD_ATTRIBUTES = {
-    :number => ["1", "2", "3"]
+    :number => ["one", "two", "three"]
     :color => {"red", "green", "blue"}
     :shade => {"solid", "stripe", "open"}
     :shape => {"diamond", "squiggle", "oval"}
@@ -28,8 +28,13 @@ def self.shape
   CARD_ATTRIBUTES[:shape]
 end
 
-def self.random_attributes (numberSamp = number.sample, colorSamp = color.sample, shadeSamp = shade.sample, shapeSamp = shape.sample)
+def self.attributes_setter (shapeIn, shadeIn, colorIn, numberIn)
   {
-  number: numbersamp, color: colorSamp, shade: shadeSamp, shape: shapeSamp
+  shape: shapeIn, shade: shadeIn, color: colorIn, number: numberIn
   }
 end
+
+def self.create_card()
+  {
+    Card.new(attributes_setter(shapeIn, shadeIn, colorIn, numberIn))
+  }
