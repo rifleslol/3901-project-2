@@ -1,18 +1,13 @@
 require_relative 'Deck'
 
 keep_running = "run"
-session_score = 0
-session_top_score = 0
-session_game_count = 0
-last_input = ""
+@session_score = 0
 playing_deck = Deck.new()
 played_deck = []
 deck_on_table = []
 cards_on_table = 0
 cards_in_deck = 0
-output_first_line = ""
-output_second_line = ""
-output_third_line = ""
+
 
 puts "Welcome to the game of Set! \n"
 puts "To quit at any time, type quit\n"
@@ -47,6 +42,12 @@ def print_deck(on_screen_deck) # Take the on-screen deck and print it
   puts output_string + "\n"
 
   output_string = ""
+  on_screen_deck.each do |card|
+  output_string = output_string + "|" + card[3] + "| "
+  end
+  puts output_string + "\n"
+
+  output_string = ""
 
   on_screen_deck.each do |card|
     output_string = output_string + "---------- "
@@ -63,7 +64,7 @@ def print_deck(on_screen_deck) # Take the on-screen deck and print it
 
 end
 
-def pair_checker(table_deck, selection)
+def pair_checker(table_deck, selection, session_score)
   is_a_set = true
   first_card = table_deck[selection[0]]
   second_card = table_deck[selection[1]]
@@ -79,15 +80,15 @@ def pair_checker(table_deck, selection)
     end
 end
 if is_a_set
-  set_found(table_deck, selection)
+  set_found(table_deck, selection, session_score)
 else
   puts (selection[0] + 1).to_s + (selection[1] + 1).to_s + (selection[2] + 1).to_s + " is not a set."
 end
 end
 
-def set_found(table_deck, selection)
+def set_found(table_deck, selection, session_score)
   puts (selection[0] + 1).to_s + " " + (selection[1] + 1).to_s + " " + (selection[2] + 1).to_s + " was a set! Nice job!\n"
-  session_score = session_score + 1
+  @session_score = @session_score + 1
   table_deck.delete_at(selection[0].to_i)
   table_deck.delete_at(selection[1].to_i)
   table_deck.delete_at(selection[2].to_i)
@@ -101,15 +102,15 @@ while keep_running != "quit" do
     cards_on_table = cards_on_table + 1
   end
   print_deck(deck_on_table)
-  puts "Please make a selection, if there is no set, type 'give up' to reset"
+  puts "Please make a selection, if there is no set, type quit to exit"
   keep_running = gets.chomp
-  if keep_running != "give up" && keep_running != "quit"
+  if keep_running != "quit"
     card_selection = keep_running.split(" ")
     card_selection[0] = card_selection[0].to_i - 1
     card_selection[1] = card_selection[1].to_i - 1
     card_selection[2] = card_selection[2].to_i - 1
-    pair_checker(deck_on_table, card_selection)
+    pair_checker(deck_on_table, card_selection, session_score)
   end
 
 end
-puts "\nThanks for playing! High score for the sessions was: " + session_top_score.to_s
+puts "\nThanks for playing! High score for this session was: " + @session_score.to_s
