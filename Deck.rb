@@ -13,17 +13,17 @@ class Deck
       @shadings.each do |shade|
         @colors.each do |color|
           @numbers.each do |number|
-            {
               new_card = SetCard.new(shape, shade, color, number)
-              temp_card = new_card.create_card()
+              temp_card = new_card.make_card()
               @Deck << temp_card
-            }
+
+            end
           end
         end
       end
     end
-
-    def print_deck
+  def print_deck
       print @Deck
-    end
+      print @Deck.length
+  end
 end
