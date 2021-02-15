@@ -63,25 +63,34 @@ def print_deck(on_screen_deck) # Take the on-screen deck and print it
 
 end
 
-def pair_checker(cards_on_table, selection)
-  first_card = cards_on_table[selection[0]]
-  second_card = cards_on_table[selection[1]]
-  third_card = cards_on_table[selection[2]]
+def pair_checker(table_deck, selection)
+  is_a_set = true
+  first_card = table_deck[selection[0]]
+  second_card = table_deck[selection[1]]
+  third_card = table_deck[selection[2]]
+
   first_card.each do |first_values|
     second_card.each do |second_values|
       third_card.each do |third_values|
         if first_values == second_values || first_values == third_values || second_values == third_values
-          puts "choice " + selection.to_s + " was not a set.\n"
-        else
-          set_found(cards_on_table, selection)
+          is_a_set = false
+        end
+      end
+    end
+end
+if is_a_set
+  set_found(table_deck, selection)
+else
+  puts (selection[0] + 1).to_s + (selection[1] + 1).to_s + (selection[2] + 1).to_s + " is not a set."
+end
 end
 
-def set_found(cards_on_table, selection)
-  puts selection.to_s + " was a set! Nice job!\n"
+def set_found(table_deck, selection)
+  puts (selection[0] + 1).to_s + " " + (selection[1] + 1).to_s + " " + (selection[2] + 1).to_s + " was a set! Nice job!\n"
   session_score = session_score + 1
-  cards_on_table.delete_at(selection[0] - 1)
-  cards_on_table.delete_at(selection[1] - 1)
-  cards_on_table.delete_at(selection[2] - 1)
+  table_deck.delete_at(selection[0].to_i)
+  table_deck.delete_at(selection[1].to_i)
+  table_deck.delete_at(selection[2].to_i)
 end
 
 while keep_running != "quit" do
@@ -96,9 +105,11 @@ while keep_running != "quit" do
   keep_running = gets.chomp
   if keep_running != "give up" && keep_running != "quit"
     card_selection = keep_running.split(" ")
-    card_selection[0] = card_selection[0].to_int + 1
-    card_selection[1] = card_selection[1].to_int + 1
-    card_selection[2] = card_selection[2].to_int + 1
-    pair_checker(cards_on_table, card_selection)
+    card_selection[0] = card_selection[0].to_i - 1
+    card_selection[1] = card_selection[1].to_i - 1
+    card_selection[2] = card_selection[2].to_i - 1
+    pair_checker(deck_on_table, card_selection)
+  end
+
 end
 puts "\nThanks for playing! High score for the sessions was: " + session_top_score.to_s
