@@ -4,10 +4,10 @@ require_relative 'SetCard'
 class Deck
   def initialize
     @Deck = []
-    @shapes = ["diamond", "squiggle", "oval"]
-    @shadings = ["solid", "stripe", "open"]
-    @colors = ["red", "green", "blue"]
-    @numbers = ["one", "two", "three"]
+    @shapes = ["diamond ", "squiggle", "  oval  "]
+    @shadings = ["  solid ", " stripe ", "  open  "]
+    @colors = ["   red  ", "  green ", "  blue  "]
+    @numbers = ["   one  ", "   two  ", "  three "]
 
     @shapes.each do |shape|
       @shadings.each do |shade|
