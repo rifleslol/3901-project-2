@@ -1,2 +1,2 @@
 class IO
-  def print_card(Card)
+  def print_cardCard)
