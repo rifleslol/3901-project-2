@@ -26,4 +26,10 @@ class Deck
       print @Deck
       print @Deck.length
   end
+  def count
+    @Deck.count
+  end
+  def delete_at(index)
+    @Deck.delete_at(index)
+  end
 end

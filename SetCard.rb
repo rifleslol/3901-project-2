@@ -1,5 +1,5 @@
 class SetCard
-
+  attr_reader :card_shape, :card_shade, :card_color, :card_number
   def initialize(*properties)
     @card_shape = properties[0]
     @card_shade = properties[1]

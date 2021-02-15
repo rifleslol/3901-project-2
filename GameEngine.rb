@@ -9,7 +9,6 @@ played_deck = []
 deck_on_table = []
 cards_on_table = 0
 cards_in_deck = 0
-output_dashes = "---"
 output_first_line = ""
 output_second_line = ""
 output_third_line = ""
@@ -21,24 +20,27 @@ puts "Every card is given a number: 1-12, to make a set, enter the three numbers
 puts "For example, if cards 3, 5, and 10 are a set, enter: 3 5 10 or 5 10 3 or 10 3 5\n"
 
 def print_deck(on_screen_deck) # Take the on-screen deck and print it
-  on_screen_deck.length.times do |i|
-    puts output_dashes + " "
+  output_string = ""
+  on_screen_deck.each do |i|
+    output_string = output_string + "--- "
   end
-  puts "\n"
+  output_string = output_string + "\n"
   on_screen_deck.each do |card|
-    puts "|" + card.shape() + "| "
+    puts card.to_s + " "
+    puts "|" + card.card_shape + "| "
   end
   puts "\n"
-  on_screen_deck.length.times do |i|
-    puts output_dashes + " "
+  on_screen_deck.each do |i|
+    puts "--- "
   end
 end
 
 
 while keep_running do
-  while cards_on_table < 12 && playing_deck.length > 0 do # Build the on-screen deck
-    current_card = playing_deck.delete_at(rand(playing_deck.length)) # Randomly pop a card from the playing_deck
+  while cards_on_table < 12 && playing_deck.count > 0 do # Build the on-screen deck
+    current_card = playing_deck.delete_at(rand(playing_deck.count)) # Randomly pop a card from the playing_deck
     played_deck << current_card.dup
     deck_on_table << current_card
   end
   print_deck(deck_on_table)
+end
